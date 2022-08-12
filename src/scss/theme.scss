@@ -1,0 +1,168 @@
+/*
+ * Font smoothing.
+ * This is a niche setting that will not be available via Global Styles.
+ * https://github.com/WordPress/gutenberg/issues/35934
+ */
+
+body {
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+}
+
+/*
+ * Text and navigation link styles.
+ * Necessary until the following issue is resolved in Gutenberg:
+ * https://github.com/WordPress/gutenberg/issues/27075
+ */
+
+a {
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.25ch;
+	text-underline-position: below;
+}
+
+a:hover {
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+}
+
+a:active {
+	text-decoration: none;
+}
+
+/*
+ * Add more gap between items in the loop block.
+ * Once the block supports blockGap, this can be removed.
+ */
+
+@media (min-width: 600px) {
+	.wp-block-post-template.is-flex-container,
+	.wp-block-query-loop.is-flex-container {
+		gap: 4rem;
+	}
+
+	.wp-block-post-template.is-flex-container.is-flex-container.columns-3 > li {
+		width: calc(33.33333% - 3rem);
+	}
+}
+/*
+ *****************************************************************
+ * CORE BLOCKS
+ *****************************************************************
+ */
+
+// IMAGE
+
+.wp-block-post-content p + .wp-block-image {
+	margin-top: calc(var(--wp--style--block-gap) * 1.5) !important;
+	margin-bottom: calc(var(--wp--style--block-gap) * 1.5) !important;
+}
+
+.wp-block-post-content p + .wp-block-image.alignfull {
+	margin-top: calc(1.25 * var(--wp--custom--spacing--medium, 8rem)) !important;
+	margin-bottom: calc(
+		1.25 * var(--wp--custom--spacing--medium, 8rem)
+	) !important;
+}
+
+// NAVIGATION
+
+.wp-block-navigation__responsive-container.is-menu-open {
+	padding-top: var(--wp--custom--spacing--outer);
+	padding-bottom: var(--wp--custom--spacing--large, 8rem);
+	padding-right: var(--wp--custom--spacing--outer);
+	padding-left: var(--wp--custom--spacing--outer);
+}
+
+// POST FEATURED IMAGE
+
+.wp-block-post-featured-image {
+	border-radius: var(--wp--custom--img-radius, 10px);
+	background-color: var(--wp--custom--color--accent);
+}
+
+.wp-block-post-featured-image img {
+	border-radius: var(--wp--custom--img-radius, 10px);
+	position: relative;
+	z-index: 1;
+}
+
+.wp-block-post-featured-image a:hover img {
+	opacity: 0.75;
+}
+
+// POST AUTHOR
+
+.wp-block-post-author__content {
+	align-self: center;
+}
+
+.wp-block-post-author__avatar img {
+	border-radius: 100%;
+	vertical-align: bottom;
+}
+
+// SOCIAL LINK
+
+.wp-block-social-links.is-style-logos-only > .wp-social-link {
+	color: currentColor;
+}
+
+.wp-block-social-link {
+	transition: none;
+	transform: none !important;
+}
+
+// QUERY PAGINATION
+
+.wp-block-query-pagination > .wp-block-query-pagination-previous {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+/*
+ *****************************************************************
+ * REGISTERED BLOCK STYLES
+ *****************************************************************
+ */
+
+/*
+ *****************************************************************
+ * UTILITY STYLES
+ *****************************************************************
+ * A couple utilities that are used throughout patterns and parts
+ * where core does not support these functionalities.
+ */
+
+@media (min-width: 781px) {
+	.hide-on-desktop {
+		display: none !important;
+	}
+}
+
+@media (max-width: 782px) {
+	.hide-on-tablet {
+		display: none !important;
+	}
+}
+
+@media (max-width: 599px) {
+	.hide-on-mobile {
+		display: none !important;
+	}
+}
+
+// Creates the effect where the accent color is halfway behind the featured image.
+
+.is-single-featured .wp-block-post-featured-image::before {
+	background: var(--wp--preset--color--secondary);
+	bottom: 0;
+	clip-path: var(--wp--custom--featured-image-clip);
+	content: '';
+	height: 50%;
+	left: 0;
+	position: absolute;
+	right: 0;
+	width: 100%;
+	z-index: 0;
+}
